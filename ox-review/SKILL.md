@@ -1,6 +1,6 @@
 ---
 name: ox-review
-description: "Review code in a diff, branch, commit, or specified files, fix findings that have obvious fixes, write the review in `docs/agents/reviews/`, record the remaining findings in `docs/agents/issues.csv`, and commit. Supports general and language-specific focused code reviews. Do not use for plan critiques or standalone documentation reviews."
+description: "Review code in a diff, branch, commit, or specified files, fix findings that have obvious fixes, write the review in `agents/reviews/`, record the remaining findings in `agents/issues.csv`, and commit. Supports general and language-specific focused code reviews. Do not use for plan critiques or standalone documentation reviews."
 argument-hint: "[general|lens[,lens...]] [review scope]"
 ---
 
@@ -8,7 +8,7 @@ argument-hint: "[general|lens[,lens...]] [review scope]"
 
 Review the code the user names. Fix findings that have an obvious, straightforward fix, record the rest as issues, and commit. Follow review and delegation rules in `AGENTS.md`.
 
-This skill and `docs/agents/reviews/` are for code reviews. Plan critiques and standalone documentation reviews are outside its scope. Read plans and documentation as context for code under review; the documentation lens checks guidance for that code.
+This skill and `agents/reviews/` are for code reviews. Plan critiques and standalone documentation reviews are outside its scope. Read plans and documentation as context for code under review; the documentation lens checks guidance for that code.
 
 ## Standard
 
@@ -52,13 +52,13 @@ Fix a finding when the fix is obvious and straightforward: it has one clear righ
 
 ## Report
 
-If `docs/agents/issues.csv` or `docs/agents/todo.md` is missing, run the `ox-init` skill first. Read `docs/agents/issues.csv` and give each open finding the next unused id (`OX-NNNN`, one more than the highest id in the file).
+If `agents/issues.csv` or `agents/todo.md` is missing, run the `ox-init` skill first. Read `agents/issues.csv` and give each open finding the next unused id (`OX-NNNN`, one more than the highest id in the file).
 
-Read `docs/agents/reviews/_template.md`, or this skill's `assets/_template.md` if the workspace has none, and use it to write the review in `docs/agents/reviews/YYYY-MM-DD-NNN-slug.md`, using the next sequence for the day. State the scope, selected lenses, and significant gaps in coverage. List the fixed findings with the source location, what could happen, and the fix; they get no id. Group open findings by severity (high, medium, low), then by lens within each severity. For each open finding, give its id, the source location, what can happen, the evidence, and a suggested fix. Record the checks you ran. If there are no findings, say so. End with a short verdict.
+Read `agents/reviews/_template.md`, or this skill's `assets/_template.md` if the workspace has none, and use it to write the review in `agents/reviews/YYYY-MM-DD-NNN-slug.md`, using the next sequence for the day. State the scope, selected lenses, and significant gaps in coverage. List the fixed findings with the source location, what could happen, and the fix; they get no id. Group open findings by severity (high, medium, low), then by lens within each severity. For each open finding, give its id, the source location, what can happen, the evidence, and a suggested fix. Record the checks you ran. If there are no findings, say so. End with a short verdict.
 
 ## Record issues
 
-Append one row to `docs/agents/issues.csv` for each open finding, in the order they appear in the review. Fixed findings stay out of `issues.csv` and `todo.md`. Never reorder or delete existing rows, because `todo.md` links to rows by line number. Quote a field that contains a comma, a quote, or a newline as CSV requires. The columns are:
+Append one row to `agents/issues.csv` for each open finding, in the order they appear in the review. Fixed findings stay out of `issues.csv` and `todo.md`. Never reorder or delete existing rows, because `todo.md` links to rows by line number. Quote a field that contains a comma, a quote, or a newline as CSV requires. The columns are:
 
 - `id` — the finding's `OX-NNNN` id.
 - `created` — the current local date and time as `YYYY-MM-DD HH:MM`.
@@ -66,9 +66,9 @@ Append one row to `docs/agents/issues.csv` for each open finding, in the order t
 - `severity` — `high`, `medium`, or `low`.
 - `lens` — the lens that found it, or empty.
 - `status` — `scheduled` for high and medium severity, `unscheduled` for low.
-- `review` — the review path relative to `docs/agents/`, such as `reviews/2026-09-25-001-slug.md`.
+- `review` — the review path relative to `agents/`, such as `reviews/2026-09-25-001-slug.md`.
 
-Add each high and medium severity issue to `docs/agents/todo.md` as an unchecked item, `- [ ] [OX-NNNN](issues.csv:LINE): Title`, where `LINE` is the row's line number in `issues.csv`. When the user, the plan, or the work log for the reviewed change names a task in `todo.md`, nest the item under that task. Otherwise add it as a new top-level item. Low severity issues stay out of `todo.md`.
+Add each high and medium severity issue to `agents/todo.md` as an unchecked item, `- [ ] [OX-NNNN](issues.csv:LINE): Title`, where `LINE` is the row's line number in `issues.csv`. When the user, the plan, or the work log for the reviewed change names a task in `todo.md`, nest the item under that task. Otherwise add it as a new top-level item. Low severity issues stay out of `todo.md`.
 
 ## Update the task
 
@@ -118,16 +118,16 @@ One or two sentences giving the verdict, the number of findings fixed, and the n
 | OX-0012 | high     | Parser drops the final token    | `src/parser.rs:42` |
 | OX-0013 | medium   | Retry loop hides the real error | `src/fetch.rs:88`  |
 
-**Review:** `docs/agents/reviews/YYYY-MM-DD-NNN-slug.md` · **Commit:** `abc1234`
+**Review:** `agents/reviews/YYYY-MM-DD-NNN-slug.md` · **Commit:** `abc1234`
 
 **Files:**
 
 - `src/parser.rs` (modified)
-- `docs/agents/reviews/YYYY-MM-DD-NNN-slug.md` (created)
-- `docs/agents/issues.csv` (modified)
-- `docs/agents/todo.md` (modified)
+- `agents/reviews/YYYY-MM-DD-NNN-slug.md` (created)
+- `agents/issues.csv` (modified)
+- `agents/todo.md` (modified)
 
-**Next:** `/ox-plan fix OX-0012 from docs/agents/issues.csv`
+**Next:** `/ox-plan fix OX-0012 from agents/issues.csv`
 ```
 
-The table lists the open high and medium severity findings, high first. If there are none, replace the table with `No open high or medium severity findings.` List every file the commit created or modified, marked `(created)` or `(modified)`. For Next, recommend planning the fix for the most severe open finding. If there are no open high or medium severity findings, recommend `/ox-plan` for the first unchecked task in `docs/agents/todo.md`, or write `Nothing left in docs/agents/todo.md.` if there is none.
+The table lists the open high and medium severity findings, high first. If there are none, replace the table with `No open high or medium severity findings.` List every file the commit created or modified, marked `(created)` or `(modified)`. For Next, recommend planning the fix for the most severe open finding. If there are no open high or medium severity findings, recommend `/ox-plan` for the first unchecked task in `agents/todo.md`, or write `Nothing left in agents/todo.md.` if there is none.
