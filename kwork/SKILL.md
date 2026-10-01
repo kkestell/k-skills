@@ -11,14 +11,14 @@ Implement the plan, record what was done, and commit.
 ## Establish the work
 
 1. Read `<plan> $ARGUMENTS </plan>` and find the plan in `agents/plans/`. If it is empty or matches no plan, ask which plan to implement and stop.
-2. Read the plan, then `AGENTS.md`.
+2. Read the plan.
 
 ## Implement
 
 3. Read the code the plan references before changing it. Carry out the plan's tasks in order and write the tests it names.
 4. Use the names the plan gives. Do not add work the plan does not call for.
-5. When the code contradicts the plan or a task cannot be done as written, stop and ask the user. Do not redesign the change on your own.
-6. Validate the change as `AGENTS.md` directs. Fix failures before continuing.
+5. When the code contradicts the plan or a task cannot be done as written, make the smallest departure that still meets the plan's goal and record it in the work log. Do not redesign the change.
+6. Validate the change. Fix failures before continuing.
 
 ## Write the work log
 
@@ -27,7 +27,7 @@ Implement the plan, record what was done, and commit.
 
 ## Commit
 
-9. Commit the implementation and the work log together, following the commit rules in `AGENTS.md`. Do not commit unrelated changes.
+9. Commit the implementation and the work log together. If the plan is not already committed, include it in the same commit. Do not commit unrelated changes.
 10. Give the final response and stop.
 
 ## Final response
@@ -47,6 +47,7 @@ One or two sentences saying what was built and whether the plan's goal is met.
 
 - `src/parser.rs` (modified)
 - `src/tokens.rs` (created)
+- `agents/work/YYYY-MM-DD-NNN-slug.md` (created)
 
 **Next:** `/kreview commit abc1234`
 ```

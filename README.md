@@ -10,11 +10,11 @@ Plans a code or behavior change. Writes a plan to `agents/plans/`.
 
 ### `/kwork`
 
-Implements a plan and commits. Writes a work log to `agents/work/`.
+Implements a plan and commits, including the plan if it is not already committed. Writes a work log to `agents/work/`.
 
 ### `/kreview`
 
-Reviews code in a diff, branch, commit, or files. Fixes findings that have obvious fixes, writes a review of the remaining findings to `agents/reviews/`, and commits.
+Reviews code in a diff, branch, commit, or files. Fixes findings that have obvious fixes, writes a review of the fixed and remaining findings to `agents/reviews/`, and commits.
 
 ## Workflows
 
@@ -24,13 +24,13 @@ Run each step in a fresh session.
 
 1. `/kplan add CSV export`
 2. `/kwork agents/plans/2026-09-25-001-export.md`
-3. `/kreview the last commit`
+3. `/kreview commit abc1234`
 
 ### Fix a review finding
 
 1. `/kplan fix "Parser drops the final token" from agents/reviews/2026-09-25-001-export.md`
 2. `/kwork agents/plans/2026-09-25-002-fix-final-token.md`
-3. `/kreview the last commit`
+3. `/kreview commit abc1234`
 
 ## Global install
 

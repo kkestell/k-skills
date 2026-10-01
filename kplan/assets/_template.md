@@ -1,6 +1,6 @@
 # Plan title
 
-Write the plan after making the main decisions. Keep the sections needed to explain the change, the relevant code, the tasks, and the tests. Delete unused headings and placeholder text.
+Write the plan after making the main decisions. Keep the sections needed to explain the change, the relevant code, the tasks, and the tests. Delete unused headings and placeholder text, including this guidance.
 
 ## Goal
 

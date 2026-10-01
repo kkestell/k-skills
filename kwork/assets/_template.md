@@ -1,6 +1,6 @@
 # Work log title
 
-Keep the log short. Record what the plan and the diff do not show. Delete unused headings and placeholder text.
+Keep the log short. Record what the plan and the diff do not show. Delete unused headings and placeholder text, including this guidance.
 
 ## Plan
 
@@ -18,7 +18,7 @@ State what changed and whether the plan's goal is met.
 
 - Choices made during the work that the plan did not settle. Omit this section if there are none.
 
-## Automated checks
+## Checks run
 
 - `command` — Result.
 

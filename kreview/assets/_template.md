@@ -2,11 +2,11 @@
 
 Delete unused headings and placeholder text, including this guidance. List findings fixed during the review under Fixed. Report each open finding under its severity heading, then under its category heading. Omit severity and category headings that have no findings.
 
-Severity describes the effect on the user. The levels, most severe first:
+Severity describes the cost of leaving the finding unfixed. The levels, most severe first:
 
-- `high` — wrong results, lost data, or a crash in normal use.
-- `medium` — wrong behavior in a realistic case, or code that is materially harder to understand or larger than it needs to be.
-- `low` — polish.
+- `high` — wrong results, lost or corrupted data, a crash, or a security hole that normal use can trigger.
+- `medium` — wrong behavior that only an uncommon but realistic case triggers, or code that makes future changes materially riskier or more expensive.
+- `low` — no effect on behavior and little effect on future changes, such as unclear naming, stale comments, or minor duplication.
 
 Categories:
 
