@@ -8,10 +8,6 @@ argument-hint: "[jira ticket, feature idea, bug report, or improvement to explor
 
 Write a plan without changing the code.
 
-## Design standard
-
-The project is a personal project with one user, its author. Choose the simplest design that meets the stated need. State the assumptions the code makes about its inputs and let the code rely on them instead of checking them. Prefer crashing with a clear message over recovering from a failure the user can fix. Do not add configuration, abstraction, or extensibility for a need the user has not stated. When a request implies handling an unusual case, ask whether it actually happens before designing for it.
-
 ## Establish the work
 
 1. Read `<feature_description> $ARGUMENTS </feature_description>`. If it is empty, ask what the user wants to plan and stop.
@@ -26,14 +22,14 @@ The project is a personal project with one user, its author. Choose the simplest
 4. Brainstorm with the user before writing when the user asks to brainstorm, the request is unclear, or exploring leaves a real engineering or design decision. Otherwise, go to Write.
 5. Ask one focused question at a time and wait for the answer. For each decision, give the options, their trade-offs, and a recommendation. Do not ask what the repository documents or existing code already answer.
 6. Speak clearly and simply. Do not use jargon, invented terms, or shorthand.
-7. Say so directly when a request adds a lot of complexity, handles a case that will not happen in practice, contradicts the architecture or an earlier decision, or fits poorly with existing code. Name the cost and recommend a simpler option. Do not let the design grow complex to fit every request.
+7. Say so directly when a request adds a lot of complexity, contradicts the architecture or an earlier decision, or fits poorly with existing code. Name the cost and recommend a simpler option.
 8. Stop brainstorming when the scope and every decision are settled.
 
 ## Write
 
 9. Read `agents/plans/_template.md`, or this skill's `assets/_template.md` if the workspace has none, and use it to write the plan in `agents/plans/`. Name the file `YYYY-MM-DD-NNN-slug.md`, using the next sequence for the day.
 10. Keep the plan to relevant code references, tasks tied to files, decisions that need explanation, names, and tests for this change. Do not repeat repository rules, standard validation commands, conversation history, rejected options, or work for a later change.
-11. Use the same names in plan tasks, proposed code, comments, and documentation. Do not give one concept several names or give an existing term a new meaning. Define any new term in the plan's Naming section and use it consistently.
+11. Use the same names in plan tasks, proposed code, comments, and documentation. Do not give one concept several names or give an existing term a new meaning.
 12. Do not review the plan yourself or ask another agent to review it. Give the final response and stop.
 
 ## Final response

@@ -10,22 +10,6 @@ Review the code the user names. Fix findings that have an obvious, straightforwa
 
 This skill and `agents/reviews/` are for code reviews. Plan critiques and standalone documentation reviews are outside its scope. Read plans and documentation as context for code under review.
 
-## Standard
-
-The code under review is a personal project with one user, its author. Small, direct code that is easy to understand matters more than handling every case. Report only what would actually go wrong for that user, or what makes the code harder to understand or larger than it needs to be.
-
-These are not findings:
-
-- Inputs the user will not produce, adversarial inputs, or data the program itself wrote that could only be malformed if something else had already failed.
-- Multiple users, concurrent access, or hostile networks, unless the code actually does that.
-- Resource exhaustion, hardening, or a defensive check whose only justification is that the case is possible in theory.
-- A missing recovery path where crashing with a clear message is acceptable.
-- A style or pattern preference with no effect on behavior or readability.
-
-Existing code that handles one of these cases is a finding: report it as code to remove.
-
-The review template defines the severity levels and the categories for findings.
-
 ## Choose what to review
 
 Read `<input_document> $ARGUMENTS </input_document>`. Ask for clarification only when the answer would change what you review.
@@ -36,9 +20,9 @@ For a diff, branch, or commit, inspect its changes and the code that calls or de
 
 Trace behavior through callers, state changes, resource lifetimes, and tests. Judge implementation choices by their purpose and consequence. Do not treat a language feature or coding pattern as a defect on its own.
 
-Read the requirements that define the behavior. If the user has approved a new design, review against that design. Flag complex or expensive code that adds no required behavior. Do not recommend extra code for a hypothetical edge case alone.
+Read the requirements that define the behavior. If the user has approved a new design, review against that design. Flag complex or expensive code that adds no required behavior.
 
-Confirm each suspected bug by tracing the code, reproducing the behavior, or running a focused check before reporting it. If you cannot confirm it, leave it out. Follow `AGENTS.md` when choosing validation. Do not require a fixed set of commands or a new test for each error path, and stay within the requested scope. Say when you reviewed only part of the code.
+Confirm each suspected bug by tracing the code, reproducing the behavior, or running a focused check before reporting it. If you cannot confirm it, leave it out. Follow `AGENTS.md` when choosing validation. Do not require a fixed set of commands, and stay within the requested scope. Say when you reviewed only part of the code.
 
 ## Fix
 
@@ -74,4 +58,4 @@ One or two sentences giving the verdict, the number of findings fixed, and the n
 **Next:** `/kplan fix "Parser drops the final token" from agents/reviews/YYYY-MM-DD-NNN-slug.md`
 ```
 
-The table lists the open findings at every severity level except the lowest, most severe first. If there are none, replace the table with `No open findings above the lowest severity.` List every file the commit created or modified, marked `(created)` or `(modified)`. For Next, recommend planning the fix for the most severe open finding. If the table has no findings, write `None.`
+The table lists the open findings at every severity level, most severe first. If there are none, replace the table with `No open findings.` List every file the commit created or modified, marked `(created)` or `(modified)`. For Next, recommend planning the fix for the most severe open finding. If the table has no findings, write `None.`

@@ -14,15 +14,9 @@ State the problem and what should happen when the work is done.
 
 Record choices that may not be clear from the tasks. Explain any constraints needed to understand them.
 
-## Naming
-
-Define each project term used in the plan. Use the same term in tasks, code, comments, and documentation. Do not use different names for the same thing or give an existing term a new meaning.
-
-- `term` — Its definition and where the name will appear.
-
 ## Test plan
 
-- Expected behavior and relevant error cases. Avoid tests that depend on internal details.
+- Expected behavior and relevant error cases.
 
 ## Implementation plan
 
