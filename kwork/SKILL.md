@@ -1,5 +1,5 @@
 ---
-name: ox-work
+name: kwork
 description: Implement a plan from `agents/plans/`, write a work log in `agents/work/`, and commit. Use to carry out a written plan, not to plan or review.
 argument-hint: "[plan path or slug]"
 ---
@@ -11,14 +11,14 @@ Implement the plan, record what was done, and commit.
 ## Establish the work
 
 1. Read `<plan> $ARGUMENTS </plan>` and find the plan in `agents/plans/`. If it is empty or matches no plan, ask which plan to implement and stop.
-2. Read the plan, then `AGENTS.md`, `agents/architecture.md`, `agents/code-style.md`, `agents/glossary.md`, and `agents/testing.md`.
+2. Read the plan, then `AGENTS.md`.
 
 ## Implement
 
 3. Read the code the plan references before changing it. Carry out the plan's tasks in order and write the tests it names.
-4. Use the names the plan and `agents/glossary.md` give. Do not add work the plan does not call for.
+4. Use the names the plan gives. Do not add work the plan does not call for.
 5. When the code contradicts the plan or a task cannot be done as written, stop and ask the user. Do not redesign the change on your own.
-6. Validate the change as `AGENTS.md` and `agents/testing.md` direct. Fix failures before continuing.
+6. Validate the change as `AGENTS.md` directs. Fix failures before continuing.
 
 ## Write the work log
 
@@ -48,7 +48,7 @@ One or two sentences saying what was built and whether the plan's goal is met.
 - `src/parser.rs` (modified)
 - `src/tokens.rs` (created)
 
-**Next:** `/ox-review commit abc1234`
+**Next:** `/kreview commit abc1234`
 ```
 
 Write `None.` under Surprises if the work went as planned. Count lines from the commit, excluding `agents/`, with `git diff --shortstat HEAD~1 HEAD -- . ':(exclude)agents'`. List every file the commit created or modified, marked `(created)` or `(modified)`.
