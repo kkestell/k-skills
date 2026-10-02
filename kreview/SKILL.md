@@ -1,12 +1,12 @@
 ---
 name: kreview
-description: "Review code in a diff, branch, commit, or specified files, fix findings that have obvious fixes, write a review of the fixed and remaining findings in `agents/reviews/`, and commit. Do not use for plan critiques or standalone documentation reviews."
+description: "Review code in a diff, branch, commit, or specified files, fix findings that need no user decision or plan, write a review of the fixed and remaining findings in `agents/reviews/`, and commit. Do not use for plan critiques or standalone documentation reviews."
 argument-hint: "[review scope]"
 ---
 
 ## Objective
 
-Review the code the user names. Fix findings that have an obvious, straightforward fix, report the rest, and commit.
+Review the code the user names. Fix every finding that needs no decision from the user and no plan, report the rest, and commit.
 
 This skill and `agents/reviews/` are for code reviews. Plan critiques and standalone documentation reviews are outside its scope. Read plans and documentation as context for code under review.
 
@@ -23,13 +23,13 @@ This skill and `agents/reviews/` are for code reviews. Plan critiques and standa
 
 ## Fix
 
-6. Fix a finding when the fix is obvious and straightforward: it has one clear right answer and needs no design, behavior, or interface decision. Leave a finding open when it needs an engineering decision, a design change, or a plan. Make only the change the finding calls for.
+6. Fix every finding you can resolve without a decision from the user and without a plan. Leave a finding open only when it needs a user decision, such as a behavior, design, or interface choice with more than one reasonable answer, or when the fix is large enough to warrant a plan, such as a change across many files or to a shared interface or architecture. Make only the change the finding calls for.
 7. Validate the fixes. If a fix fails validation and the cause is not obvious, revert it and leave the finding open.
 
 ## Report
 
 8. Read `agents/reviews/_template.md`, or this skill's `assets/_template.md` if the workspace has none, and use it to write the review in `agents/reviews/`. Name the file `YYYY-MM-DD-NNN-slug.md`, using the next sequence for the day.
-9. State the scope and significant gaps in coverage. List the fixed findings with the source location, what could happen, and the fix. Group open findings by the template's severity levels, most severe first, then by its categories within each severity. For each open finding, give its title, the source location, what can happen, the evidence, and a suggested fix. Record the checks you ran. If there are no findings, say so. End with a short verdict.
+9. State the scope and significant gaps in coverage. List the fixed findings with the source location, what could happen, and the fix. Group open findings by the template's severity levels, most severe first, then by its categories within each severity. For each open finding, give its title, the source location, what can happen, the evidence, a suggested fix, and the decision it needs or why it needs a plan. Record the checks you ran. If there are no findings, say so. End with a short verdict.
 
 ## Commit
 
@@ -61,7 +61,7 @@ One or two sentences giving the verdict, the number of findings fixed, and the n
 - `src/fetch.rs` (modified)
 - `agents/reviews/YYYY-MM-DD-NNN-slug.md` (created)
 
-**Next:** `/kplan fix "Parser drops the final token" from agents/reviews/YYYY-MM-DD-NNN-slug.md`
+**Next:** `/kplan fix "Parser drops the final token" and "Retry loop hides the real error" from agents/reviews/YYYY-MM-DD-NNN-slug.md`
 ```
 
-Under Fixed, list each finding fixed during the review with its title and location. If there are none, write `None.` The Open table lists the open findings at every severity level, most severe first. If there are none, replace the table with `None.` List every file the commit created or modified, marked `(created)` or `(modified)`. For Next, recommend planning the fix for the most severe open finding. If there are no open findings, write `None.`
+Under Fixed, list each finding fixed during the review with its title and location. If there are none, write `None.` The Open table lists the open findings at every severity level, most severe first. If there are none, replace the table with `None.` List every file the commit created or modified, marked `(created)` or `(modified)`. For Next, recommend one `/kplan` that covers every open finding, naming each by title. If there are no open findings, write `None.`

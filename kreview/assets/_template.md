@@ -38,13 +38,13 @@ For each finding fixed during the review, give the source location, what could h
 
 ## Findings
 
-For each open finding, give its title, the source location, what can happen, the evidence, and a suggested fix. If there are no open findings, say so here.
+For each open finding, give its title, the source location, what can happen, the evidence, a suggested fix, and the decision it needs or why it needs a plan. If there are no open findings, say so here.
 
 ### Severity
 
 #### Category
 
-- **Finding title** (`path/to/file.rs:line`): Consequence, evidence, and fix.
+- **Finding title** (`path/to/file.rs:line`): Consequence, evidence, fix, and the decision or plan it needs.
 
 ## Checks run
 

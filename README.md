@@ -14,7 +14,7 @@ Implements a plan and commits, including the plan if it is not already committed
 
 ### `/kreview`
 
-Reviews code in a diff, branch, commit, or files. Fixes findings that have obvious fixes, writes a review of the fixed and remaining findings to `agents/reviews/`, and commits.
+Reviews code in a diff, branch, commit, or files. Fixes findings that need no user decision or plan, writes a review of the fixed and remaining findings to `agents/reviews/`, and commits.
 
 ## Workflows
 
@@ -26,10 +26,10 @@ Run each step in a fresh session.
 2. `/kwork agents/plans/2026-09-25-001-export.md`
 3. `/kreview commit abc1234`
 
-### Fix a review finding
+### Fix open review findings
 
-1. `/kplan fix "Parser drops the final token" from agents/reviews/2026-09-25-001-export.md`
-2. `/kwork agents/plans/2026-09-25-002-fix-final-token.md`
+1. `/kplan fix "Parser drops the final token" and "Retry loop hides the real error" from agents/reviews/2026-09-25-001-export.md`
+2. `/kwork agents/plans/2026-09-25-002-fix-review-findings.md`
 3. `/kreview commit abc1234`
 
 ## Global install
