@@ -30,7 +30,7 @@ Run each step in a fresh session.
 2. `/kwork agents/plans/2026-09-25-001-export.md`
 3. `/kreview commit abc1234`
 
-### Fix open review findings
+### Fix review findings that need a plan
 
 1. `/kplan fix "Parser drops the final token" and "Retry loop hides the real error" from agents/reviews/2026-09-25-001-export.md`
 2. `/kwork agents/plans/2026-09-25-002-fix-review-findings.md`

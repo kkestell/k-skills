@@ -23,7 +23,7 @@ This skill and `agents/reviews/` are for code reviews. Plan critiques and standa
 
 ## Fix
 
-6. Fix every finding you can resolve without a decision from the user and without a plan. Leave a finding open only when it needs a user decision, such as a behavior, design, or interface choice with more than one reasonable answer, or when the fix is large enough to warrant a plan, such as a change across many files or to a shared interface or architecture. Make only the change the finding calls for.
+6. Fix every finding you can resolve without a decision from the user and without a plan. Use requirements, existing plans, and approved decisions to establish the intended behavior before deciding a fix needs a new decision. Leave a finding open only when a behavior, design, or interface choice remains unresolved, or the change needs substantial implementation planning. Severity and file count alone do not require a plan. Make only the change the finding calls for.
 7. Validate the fixes. If a fix fails validation and the cause is not obvious, revert it and leave the finding open.
 
 ## Report
@@ -61,7 +61,7 @@ One or two sentences giving the verdict, the number of findings fixed, and the n
 - `src/fetch.rs` (modified)
 - `agents/reviews/YYYY-MM-DD-NNN-slug.md` (created)
 
-**Next:** `/kplan fix "Parser drops the final token" and "Retry loop hides the real error" from agents/reviews/YYYY-MM-DD-NNN-slug.md`
+**Next:** `Fix "Parser drops the final token" and "Retry loop hides the real error" from agents/reviews/YYYY-MM-DD-NNN-slug.md`
 ```
 
-Under Fixed, list each finding fixed during the review with its title and location. If there are none, write `None.` The Open table lists the open findings at every severity level, most severe first. If there are none, replace the table with `None.` List every file the commit created or modified, marked `(created)` or `(modified)`. For Next, recommend one `/kplan` that covers every open finding, naming each by title. If there are no open findings, write `None.`
+Under Fixed, list each finding fixed during the review with its title and location. If there are none, write `None.` The Open table lists the open findings at every severity level, most severe first. If there are none, replace the table with `None.` List every file the commit created or modified, marked `(created)` or `(modified)`. For Next, suggest direct fixes for findings that need no plan and state any decision needed from the user. Recommend `/kplan` only for findings that need an unresolved design decision or substantial implementation planning, naming those findings and explaining why a plan is needed. Group findings that need a plan into one invocation. If there are no open findings, write `None.`
