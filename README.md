@@ -10,7 +10,7 @@ Plans a code or behavior change. Writes a plan to `agents/plans/`.
 
 ### `/kwork`
 
-Implements a plan and commits, including the plan if it is not already committed. Writes a work log to `agents/work/`.
+Implements a plan and writes a work log to `agents/work/`. Stages the plan, work log, and code changes without committing.
 
 ### `/kdiscuss <claude|codex|opencode> <topic or artifact path>`
 
@@ -18,7 +18,7 @@ Refines a plan, argument, or idea with another agent in a persistent conversatio
 
 ### `/kreview`
 
-Reviews code in a diff, branch, commit, or files. Fixes findings that need no user decision or plan, writes a review of the fixed and remaining findings to `agents/reviews/`, and commits.
+Reviews code in a diff, branch, commit, or files. Fixes findings that need no user decision or plan, writes a review of the fixed and remaining findings to `agents/reviews/`, and stages it. Commits everything staged when no findings remain open; otherwise leaves the changes staged and recommends `/kplan` for the open findings.
 
 ## Workflows
 
@@ -28,13 +28,17 @@ Run each step in a fresh session.
 
 1. `/kplan add CSV export`
 2. `/kwork agents/plans/2026-09-25-001-export.md`
-3. `/kreview commit abc1234`
+3. `/kreview staged changes for agents/plans/2026-09-25-001-export.md`
+
+The plan, work log, code changes, and review land in one commit when the review leaves no findings open.
 
 ### Fix review findings that need a plan
 
 1. `/kplan fix "Parser drops the final token" and "Retry loop hides the real error" from agents/reviews/2026-09-25-001-export.md`
 2. `/kwork agents/plans/2026-09-25-002-fix-review-findings.md`
-3. `/kreview commit abc1234`
+3. `/kreview staged changes for agents/plans/2026-09-25-002-fix-review-findings.md`
+
+The earlier work stays staged, so the final commit includes both rounds.
 
 ### Refine a plan before implementation
 

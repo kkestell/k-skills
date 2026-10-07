@@ -29,7 +29,7 @@ Write a plan without changing the code.
 8. Read `agents/plans/_template.md`, or this skill's `assets/_template.md` if the workspace has none, and use it to write the plan in `agents/plans/`. Name the file `YYYY-MM-DD-NNN-slug.md`, using the next sequence for the day.
 9. Keep the plan to relevant code references, tasks tied to files, decisions that need explanation, names, and tests for this change. Do not repeat repository rules, standard validation commands, conversation history, rejected options, or work for a later change.
 10. Use the same names in plan tasks, proposed code, comments, and documentation. Do not give one concept several names or give an existing term a new meaning.
-11. Do not review the plan yourself or ask another agent to review it. Give the final response and stop.
+11. Do not review the plan yourself or ask another agent to review it. Do not commit the plan; `/kreview` commits it with the work. Give the final response and stop.
 
 ## Final response
 
