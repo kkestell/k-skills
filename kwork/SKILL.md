@@ -1,12 +1,12 @@
 ---
 name: kwork
-description: Implement a plan from `agents/plans/`, write a work log in `agents/work/`, and stage the changes for review. Use to carry out a written plan, not to plan or review.
+description: Implement a plan from `agents/plans/` and stage the changes for review. Use to carry out a written plan, not to plan or review.
 argument-hint: "[plan path or slug]"
 ---
 
 ## Objective
 
-Implement the plan, record what was done, and stage the changes for review.
+Implement the plan and stage the changes for review.
 
 ## Establish the work
 
@@ -17,18 +17,13 @@ Implement the plan, record what was done, and stage the changes for review.
 
 3. Read the code the plan references before changing it. Carry out the plan's tasks in order and write the tests it names.
 4. Use the names the plan gives. Do not add work the plan does not call for.
-5. When the code contradicts the plan or a task cannot be done as written, make the smallest departure that still meets the plan's goal and record it in the work log. Do not redesign the change.
+5. When the code contradicts the plan or a task cannot be done as written, make the smallest departure that still meets the plan's goal and report it under Surprises. Do not redesign the change.
 6. Validate the change. Fix failures before continuing.
-
-## Write the work log
-
-7. Read `agents/work/_template.md`, or this skill's `assets/_template.md` if the workspace has none, and use it to write the work log in `agents/work/`. Name the file `YYYY-MM-DD-NNN-slug.md`, using today's date, the next sequence for the day, and the plan's slug.
-8. Keep the log concise. Record where the work departed from the plan and why, decisions made during the work, the checks that ran, manual verification with the commands to reproduce it, and follow-up work. Do not repeat the plan, the diff, or the conversation.
 
 ## Stage
 
-9. Stage the implementation, the work log, and the plan. Do not stage unrelated changes. Do not commit; `/kreview` commits the work when no findings remain open.
-10. Give the final response and stop.
+7. Stage the implementation and the plan. Do not stage unrelated changes. Do not commit; `/kreview` commits the work when no findings remain open.
+8. Give the final response and stop.
 
 ## Final response
 
@@ -41,14 +36,13 @@ One or two sentences saying what was built and whether the plan's goal is met.
 
 - A departure from the plan, a detour, something unexpected in the code, or follow-up work.
 
-**Work log:** `agents/work/YYYY-MM-DD-NNN-slug.md` · **Lines:** +120 / −45 (net +75)
+**Lines:** +120 / −45 (net +75)
 
 **Files:**
 
 - `src/parser.rs` (modified)
 - `src/tokens.rs` (created)
 - `agents/plans/YYYY-MM-DD-NNN-slug.md` (created)
-- `agents/work/YYYY-MM-DD-NNN-slug.md` (created)
 
 **Next:** `/kreview staged changes for agents/plans/YYYY-MM-DD-NNN-slug.md`
 ```

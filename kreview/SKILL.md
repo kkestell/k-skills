@@ -34,7 +34,7 @@ This skill and `agents/reviews/` are for code reviews. Plan critiques and standa
 ## Commit
 
 10. Stage the fixes and the review. Do not stage unrelated changes.
-11. If no findings remain open, commit everything staged in one commit, including any plan and work log staged by `/kwork`. If any finding remains open, do not commit; leave the changes staged.
+11. If no findings remain open, commit everything staged in one commit, including any plan staged by `/kwork`. If any finding remains open, do not commit; leave the changes staged.
 12. Give the final response and stop.
 
 ## Final response

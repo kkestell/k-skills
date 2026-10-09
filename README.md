@@ -10,7 +10,7 @@ Plans a code or behavior change. Writes a plan to `agents/plans/`.
 
 ### `/kwork`
 
-Implements a plan and writes a work log to `agents/work/`. Stages the plan, work log, and code changes without committing.
+Implements a plan. Stages the plan and code changes without committing.
 
 ### `/kdiscuss <claude|codex|opencode> <topic or artifact path>`
 
@@ -30,7 +30,7 @@ Run each step in a fresh session.
 2. `/kwork agents/plans/2026-09-25-001-export.md`
 3. `/kreview staged changes for agents/plans/2026-09-25-001-export.md`
 
-The plan, work log, code changes, and review land in one commit when the review leaves no findings open.
+The plan, code changes, and review land in one commit when the review leaves no findings open.
 
 ### Fix review findings that need a plan
 
