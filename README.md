@@ -20,6 +20,10 @@ Refines a plan, argument, or idea with another agent in a persistent conversatio
 
 Reviews code in a diff, branch, commit, or files. Fixes findings that need no user decision or plan, writes a review of the fixed and remaining findings to `agents/reviews/`, and stages it. Commits everything staged when no findings remain open; otherwise leaves the changes staged and recommends `/kplan` for the open findings.
 
+### `/kauto`
+
+Plans, implements, and reviews a change without stopping for user input. Runs `/kplan` and `/kwork`, runs `/kreview` in a subagent, fixes any findings the review leaves open, and commits. Ends with a summary of the design and architecture decisions it made.
+
 ## Workflows
 
 Run each step in a fresh session.
@@ -31,6 +35,12 @@ Run each step in a fresh session.
 3. `/kreview staged changes for agents/plans/2026-09-25-001-export.md`
 
 The plan, code changes, and review land in one commit when the review leaves no findings open.
+
+### Implement a task autonomously
+
+1. `/kauto add CSV export`
+
+The plan, code changes, and review land in one commit, with every open finding fixed.
 
 ### Fix review findings that need a plan
 

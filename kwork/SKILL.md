@@ -10,7 +10,9 @@ Implement the plan and stage the changes for review.
 
 ## Establish the work
 
-1. Read `<plan> $ARGUMENTS </plan>` and find the plan in `agents/plans/`. If it is empty or matches no plan, ask which plan to implement and stop.
+1. Read `<plan> $ARGUMENTS </plan>` and select the plan in `agents/plans/`:
+   - If a path or slug is supplied, resolve it to a plan. Ask which plan to implement and stop only if it matches no plan or is ambiguous.
+   - If no argument is supplied, inspect the plans and repository evidence such as existing code, reviews, and Git history to identify unimplemented plans. If exactly one remains, select it and proceed without asking. Do not require an explicit completion marker to recognize an implemented plan. Ask which plan to implement and stop only if no unimplemented plan can be identified or multiple candidates remain.
 2. Read the plan.
 
 ## Implement
