@@ -4,6 +4,7 @@ import contextlib
 import io
 import json
 import os
+import re
 from pathlib import Path
 import tempfile
 import unittest
@@ -81,6 +82,9 @@ class DiscussionTests(unittest.TestCase):
                 self.assertIn("# Discussion rules", calls[0][1])
                 self.assertNotIn("# Discussion rules", calls[1][1])
                 self.assertIn("This is the final reply", calls[-1][1])
+                for command, _, kwargs in calls:
+                    self.assertEqual(kwargs["cwd"], str(Path.cwd().resolve()))
+                    self.assert_read_only(agent, command)
                 resume_command = calls[1][0]
                 if agent == "claude":
                     self.assertIn("--resume", resume_command)
@@ -94,6 +98,20 @@ class DiscussionTests(unittest.TestCase):
                 self.assertEqual(saved["turns"], discuss.MAX_TURNS)
                 self.assertEqual(len(saved["messages"]), discuss.MAX_TURNS * 2)
                 self.assertEqual(saved["status"], "ready")
+
+    def assert_read_only(self, agent, command):
+        if agent == "claude":
+            self.assertEqual(command[command.index("--tools") + 1], "Read,Grep,Glob,Bash")
+            self.assertEqual(command[command.index("--permission-mode") + 1], "dontAsk")
+            self.assertIn("Edit", command[command.index("--disallowedTools") + 1])
+        elif agent == "codex":
+            overrides = [command[i + 1] for i, arg in enumerate(command) if arg == "-c"]
+            self.assertIn('sandbox_mode="read-only"', overrides)
+            self.assertIn('approval_policy="never"', overrides)
+            self.assertIn('web_search="disabled"', overrides)
+            self.assertNotIn("--dangerously-bypass-approvals-and-sandbox", command)
+        else:
+            self.assertEqual(command[command.index("--agent") + 1], "kdiscuss")
 
     def test_failed_turn_cannot_be_resent(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -138,7 +156,32 @@ class DiscussionTests(unittest.TestCase):
         self.assertEqual(config["theme"], "custom")
         self.assertEqual(config["agent"]["other"], original["agent"]["other"])
         self.assertEqual(config["share"], "disabled")
-        self.assertEqual(config["agent"]["kdiscuss"]["permission"], {"*": "deny"})
+        permission = config["agent"]["kdiscuss"]["permission"]
+        self.assertEqual(list(permission)[0], "*")
+        self.assertEqual(permission["*"], "deny")
+        for tool in ("read", "glob", "grep", "list"):
+            self.assertEqual(permission[tool], "allow")
+        self.assertEqual(permission["external_directory"], "deny")
+        self.assertNotIn("edit", permission)
+
+    def test_opencode_shell_rules_allow_only_read_only_git(self):
+        rules = json.loads(discuss.environment("opencode")["OPENCODE_CONFIG_CONTENT"])["agent"]["kdiscuss"]["permission"]["bash"]
+
+        def action(command):
+            # OpenCode applies the last rule whose wildcard matches the command.
+            result = None
+            for pattern, value in rules.items():
+                regex = re.sub(r"[.+^${}()|[\]\\]", r"\\\g<0>", pattern).replace("*", ".*").replace("?", ".")
+                if regex.endswith(" .*"):
+                    regex = regex[:-3] + "( .*)?"
+                if re.fullmatch(regex, command, re.S):
+                    result = value
+            return result
+
+        for command in ("git log", "git log --oneline -5", "git show HEAD", "git diff HEAD~1"):
+            self.assertEqual(action(command), "allow", command)
+        for command in ("rm -rf src", "git commit -m x", "git checkout .", "git diff > out.patch", "git diff --output=out.patch", "cargo build"):
+            self.assertEqual(action(command), "deny", command)
 
     def test_cli_failure_retains_diagnostic(self):
         process = unittest.mock.Mock(returncode=1)

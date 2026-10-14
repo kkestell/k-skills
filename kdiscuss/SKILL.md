@@ -16,7 +16,7 @@ Develop a stronger proposal with another agent. Finish with agreed improvements 
 
 ## Open the discussion
 
-4. Read this skill's `references/discussion-rules.md` and follow it yourself. Write an opening message containing the goal, constraints, proposal, relevant artifact contents, evidence, your initial assessment, and the most consequential uncertainties. Give the peer enough context to assess the proposal independently. The helper includes the discussion rules in the first message.
+4. Read this skill's `references/discussion-rules.md` and follow it yourself. Write an opening message containing the goal, constraints, proposal, evidence, your initial assessment, and the most consequential uncertainties. The peer runs in the same workspace with read-only access, so point it at the relevant files, commits, and commands rather than pasting every fact, and quote only what it cannot read itself. Give the peer enough context to assess the proposal independently. The helper includes the discussion rules in the first message.
 5. Create a temporary directory for the session state and message files. From the workspace root, send the opening message with the command below, replacing the script path with its absolute installed location. Keep the returned state path for every subsequent turn.
 
    ```bash
@@ -27,7 +27,7 @@ Develop a stronger proposal with another agent. Finish with agreed improvements 
 
 ## Discuss
 
-6. Evaluate each reply against the goal and available evidence. Check consequential factual claims yourself. Accept useful corrections, explain why an objection does not apply, or propose a concrete alternative. Supply any new evidence the peer needs. Do not merely relay messages or treat the peer's confidence as proof.
+6. Evaluate each reply against the goal and available evidence. Check consequential factual claims yourself. Accept useful corrections, explain why an objection does not apply, or propose a concrete alternative. Supply any evidence the peer cannot inspect itself. Do not merely relay messages or treat the peer's confidence as proof.
 7. Keep each response focused on what remains unsettled and how the proposal should change. Use the same session for the response:
 
    ```bash
@@ -40,4 +40,8 @@ Develop a stronger proposal with another agent. Finish with agreed improvements 
 ## Finish
 
 10. For a supplied plan, incorporate the agreed refinements in place, preserving its format and scope. Leave disputed changes out and report them. For another artifact, edit it only when requested; otherwise present the refined proposal in the final response. Do not implement the plan or commit unless the user asks.
-11. Reply concisely with the result, the important improvements, and any remaining questions. Name the other agent and distinguish confirmed agreement from a discussion that stopped early. Link any updated artifact. Leave out the transcript and execution details unless the user asks for them.
+11. End with a summary of the exchange in two parts:
+    - **Overview.** Summarize what was discussed, what changed in the proposal, what was settled, and what remains unresolved. Name the other agent and distinguish confirmed agreement from a discussion that stopped early. Link any updated artifact.
+    - **Messages.** List every message in order, numbered and labeled with its sender, and summarize each in a sentence or two. Use the `messages` recorded in the session state file. Leave out the discussion rules the helper prepends to the opening message and the turn counters it appends.
+
+    Leave out the full transcript and execution details unless the user asks for them.

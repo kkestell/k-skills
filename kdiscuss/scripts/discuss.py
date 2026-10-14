@@ -21,6 +21,11 @@ MODELS = {
     "opencode": "deepseek/deepseek-flash",
 }
 RULES = Path(__file__).resolve().parents[1] / "references/discussion-rules.md"
+# Read-only git forms OpenCode may run; any other shell command is denied.
+OPENCODE_SHELL = [
+    "git log *", "git show *", "git diff *", "git status *", "git blame *",
+    "git grep *", "git ls-files *", "git rev-parse *",
+]
 
 
 def command(state):
@@ -29,7 +34,12 @@ def command(state):
     if agent == "claude":
         args = [
             "claude", "-p", "--model", MODELS[agent], "--effort", "high",
-            "--output-format", "json", "--tools", "", "--disable-slash-commands",
+            "--output-format", "json",
+            # dontAsk denies any call that would prompt, so only workspace reads
+            # and Claude Code's built-in read-only shell commands run.
+            "--tools", "Read,Grep,Glob,Bash", "--permission-mode", "dontAsk",
+            "--disallowedTools", "Edit,Write,NotebookEdit",
+            "--disable-slash-commands",
             "--strict-mcp-config", "--mcp-config", '{"mcpServers":{}}',
         ]
         args += ["--resume", session] if session else ["--session-id", state["claude_id"]]
@@ -40,7 +50,9 @@ def command(state):
             "--model", MODELS[agent], "--json", "--skip-git-repo-check",
             "-c", 'model_provider="openai"',
             "-c", 'model_reasoning_effort="high"',
+            # Resume reads these overrides too, so every turn stays read-only.
             "-c", 'sandbox_mode="read-only"', "-c", 'approval_policy="never"',
+            "-c", 'web_search="disabled"',
         ]
         return args + ([session, "-"] if session else ["-"])
     args = [
@@ -56,9 +68,19 @@ def environment(agent):
         # Merge runtime overrides without writing the user's OpenCode config.
         config = json.loads(env.get("OPENCODE_CONFIG_CONTENT", "{}"))
         config["share"] = "disabled"
+        # The last matching rule wins, so specific rules follow the defaults.
+        shell = {"*": "deny", **dict.fromkeys(OPENCODE_SHELL, "allow")}
+        shell.update({"*>*": "deny", "*--output*": "deny"})
         config.setdefault("agent", {})["kdiscuss"] = {
-            "mode": "primary", "permission": {"*": "deny"},
-            "prompt": "Discuss the supplied proposal. Do not use tools.",
+            "mode": "primary",
+            "permission": {
+                "*": "deny", "read": "allow", "glob": "allow", "grep": "allow",
+                "list": "allow", "bash": shell, "external_directory": "deny",
+            },
+            "prompt": (
+                "Discuss the supplied proposal. Inspect the workspace with read-only "
+                "tools to verify claims. Do not modify anything."
+            ),
         }
         env["OPENCODE_CONFIG_CONTENT"] = json.dumps(config)
     return env
