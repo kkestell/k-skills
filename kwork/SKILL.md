@@ -24,7 +24,7 @@ Implement the plan and stage the changes for review.
 
 ## Stage
 
-7. Stage the implementation and the plan. Do not stage unrelated changes. Do not commit; `/kreview` commits the work when no findings remain open.
+7. Stage the implementation, and the plan if it is not already staged. Do not stage unrelated changes. Do not commit; `/kreview` commits the work when the review has no findings.
 8. Give the final response and stop.
 
 ## Final response

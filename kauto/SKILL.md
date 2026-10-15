@@ -24,13 +24,13 @@ Carry the change from plan to commit on your own. You are working autonomously, 
 ## Review
 
 5. Start one subagent and have it run `/kreview staged changes for <plan path>` and return the skill's final response.
-6. If the review committed the work with no findings open, go to Final response.
+6. If the review committed the work with no findings, go to Final response.
 
-## Fix open findings
+## Fix findings
 
-7. Fix every open finding the review lists. Make the decision each finding needs yourself, using the same rule as in Plan, and note it. When a finding needs a plan, plan the fix as you make it without writing another plan.
+7. Fix every finding the review lists. Make the decision each finding needs yourself, using the same rule as in Plan, and note it. When a finding needs a plan, plan the fix as you make it without writing another plan.
 8. Validate the fixes. Fix failures before continuing.
-9. Update the review in `agents/reviews/` so each finding you fixed moves from open to fixed with its fix, and update the verdict.
+9. Update the review in `agents/reviews/`: change each fixed finding's fix label to `Fixed` in the summary table and its section, put the change you made under its fix, and update the verdict.
 10. Stage the fixes and the review. Do not stage unrelated changes. Commit everything staged in one commit, including the plan and the work from `/kwork`.
 
 ## Final response
@@ -44,7 +44,7 @@ Two to four sentences saying what was built, how, and whether the plan's goal is
 
 - Stored export settings per user rather than per workspace, because settings are already loaded per user in `src/settings.rs`.
 
-**Review:** `agents/reviews/YYYY-MM-DD-NNN-slug.md` · Fixed 3 findings, 2 after the review.
+**Review:** `agents/reviews/YYYY-MM-DD-NNN-slug.md` · Fixed 3 findings.
 
 **Plan:** `agents/plans/YYYY-MM-DD-NNN-slug.md` · **Commit:** `abc1234`
 

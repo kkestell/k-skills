@@ -6,11 +6,11 @@ Each artifact directory may contain a `_template.md`; if it does, the skill uses
 
 ### `/kplan`
 
-Plans a code or behavior change. Writes a plan to `agents/plans/`.
+Plans a code or behavior change. Writes a plan to `agents/plans/` and stages it without committing.
 
 ### `/kwork`
 
-Implements a plan. Stages the plan and code changes without committing.
+Implements a plan. Stages the code changes without committing.
 
 ### `/kdiscuss <claude|codex|opencode> <topic or artifact path>`
 
@@ -18,11 +18,11 @@ Refines a plan, argument, or idea with another agent in a persistent conversatio
 
 ### `/kreview`
 
-Reviews code in a diff, branch, commit, or files. Fixes findings that need no user decision or plan, writes a review of the fixed and remaining findings to `agents/reviews/`, and stages it. Commits everything staged when no findings remain open; otherwise leaves the changes staged and recommends `/kplan` for the open findings.
+Reviews code in a diff, branch, commit, or files without changing it. Writes a review to `agents/reviews/` that marks each finding as `Trivial`, `Needs decision`, or `Needs plan`, and stages it. Commits everything staged when there are no findings; otherwise leaves the changes staged and recommends `/kplan` for the findings.
 
 ### `/kauto`
 
-Plans, implements, and reviews a change without stopping for user input. Runs `/kplan` and `/kwork`, runs `/kreview` in a subagent, fixes any findings the review leaves open, and commits. Ends with a summary of the design and architecture decisions it made.
+Plans, implements, and reviews a change without stopping for user input. Runs `/kplan` and `/kwork`, runs `/kreview` in a subagent, fixes every finding the review reports, and commits. Ends with a summary of the design and architecture decisions it made.
 
 ## Workflows
 
@@ -34,17 +34,17 @@ Run each step in a fresh session.
 2. `/kwork agents/plans/2026-09-25-001-export.md`
 3. `/kreview staged changes for agents/plans/2026-09-25-001-export.md`
 
-The plan, code changes, and review land in one commit when the review leaves no findings open.
+The plan, code changes, and review land in one commit when the review has no findings.
 
 ### Implement a task autonomously
 
 1. `/kauto add CSV export`
 
-The plan, code changes, and review land in one commit, with every open finding fixed.
+The plan, code changes, and review land in one commit, with every finding fixed.
 
-### Fix review findings that need a plan
+### Fix review findings
 
-1. `/kplan fix "Parser drops the final token" and "Retry loop hides the real error" from agents/reviews/2026-09-25-001-export.md`
+1. `/kplan fix F1 and F2 from agents/reviews/2026-09-25-001-export.md`
 2. `/kwork agents/plans/2026-09-25-002-fix-review-findings.md`
 3. `/kreview staged changes for agents/plans/2026-09-25-002-fix-review-findings.md`
 
