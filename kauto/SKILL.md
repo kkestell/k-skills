@@ -23,15 +23,7 @@ Carry the change from plan to commit on your own. You are working autonomously, 
 
 ## Review
 
-5. Start one subagent and have it run `/kreview staged changes for <plan path>` and return the skill's final response.
-6. If the review committed the work with no findings, go to Final response.
-
-## Fix findings
-
-7. Fix every finding the review lists. Make the decision each finding needs yourself, using the same rule as in Plan, and note it. When a finding needs a plan, plan the fix as you make it without writing another plan.
-8. Validate the fixes. Fix failures before continuing.
-9. Update the review in `agents/reviews/`: change each fixed finding's fix label to `Fixed` in the summary table and its section, put the change you made under its fix, and update the verdict.
-10. Stage the fixes and the review. Do not stage unrelated changes. Commit everything staged in one commit, including the plan and the work from `/kwork`.
+5. Start one subagent and have it run `/kreview staged changes for <plan path>`. Tell it to settle each decision `/kreview` would ask the user for itself, using the same rule as in Plan, and to return the skill's final response and every decision it made.
 
 ## Final response
 
@@ -55,6 +47,7 @@ Two to four sentences saying what was built, how, and whether the plan's goal is
 - `src/parser.rs` (modified)
 - `src/tokens.rs` (created)
 - `agents/plans/YYYY-MM-DD-NNN-slug.md` (created)
+- `agents/work/YYYY-MM-DD-NNN-slug.md` (created)
 - `agents/reviews/YYYY-MM-DD-NNN-slug.md` (created)
 ```
 

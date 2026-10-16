@@ -10,7 +10,7 @@ Plans a code or behavior change. Writes a plan to `agents/plans/` and stages it 
 
 ### `/kwork`
 
-Implements a plan. Stages the code changes without committing.
+Implements a plan and writes a work log to `agents/work/`. Stages the work log and code changes without committing.
 
 ### `/kdiscuss <claude|codex|opencode> <topic or artifact path>`
 
@@ -18,15 +18,15 @@ Refines a plan, argument, or idea with another agent in a persistent conversatio
 
 ### `/kreview`
 
-Reviews code in a diff, branch, commit, or files without changing it. Writes a review to `agents/reviews/` that marks each finding as `Trivial`, `Needs decision`, or `Needs plan`, and stages it. Commits everything staged when there are no findings; otherwise leaves the changes staged and recommends `/kplan` for the findings.
+Reviews code in a diff, branch, commit, or files and fixes every finding. Fixes trivial findings directly and asks the user to decide the rest before fixing them. Writes a review to `agents/reviews/` and commits everything staged.
 
 ### `/kauto`
 
-Plans, implements, and reviews a change without stopping for user input. Runs `/kplan` and `/kwork`, runs `/kreview` in a subagent, fixes every finding the review reports, and commits. Ends with a summary of the design and architecture decisions it made.
+Plans, implements, and reviews a change without stopping for user input. Runs `/kplan` and `/kwork`, and runs `/kreview` in a subagent that makes the review's decisions itself and commits. Ends with a summary of the design and architecture decisions it made.
 
 ## Workflows
 
-Run each step in a fresh session.
+The steps can share one session or each run in a fresh one.
 
 ### Implement a task
 
@@ -34,21 +34,13 @@ Run each step in a fresh session.
 2. `/kwork agents/plans/2026-09-25-001-export.md`
 3. `/kreview staged changes for agents/plans/2026-09-25-001-export.md`
 
-The plan, code changes, and review land in one commit when the review has no findings.
+The plan, work log, code changes, review, and fixes land in one commit.
 
 ### Implement a task autonomously
 
 1. `/kauto add CSV export`
 
 The plan, code changes, and review land in one commit, with every finding fixed.
-
-### Fix review findings
-
-1. `/kplan fix F1 and F2 from agents/reviews/2026-09-25-001-export.md`
-2. `/kwork agents/plans/2026-09-25-002-fix-review-findings.md`
-3. `/kreview staged changes for agents/plans/2026-09-25-002-fix-review-findings.md`
-
-The earlier work stays staged, so the final commit includes both rounds.
 
 ### Refine a plan before implementation
 

@@ -2,11 +2,7 @@
 
 Delete placeholder text and unused sections, including this guidance. Give every finding an ID in severity order, most severe first: `F1`, `F2`, and so on. Each finding gets its own section. Do not put findings in bullets, and do not nest them under severity or category headings.
 
-Fix labels say how much work the fix is:
-
-- `Trivial`: the fix needs no decision from the user and no plan.
-- `Needs decision`: a behavior, design, or interface choice remains unresolved.
-- `Needs plan`: the change needs substantial implementation planning.
+Every finding is fixed during the review, so its fix label is `Fixed`.
 
 Severity describes the cost of leaving the finding unfixed. The levels, most severe first:
 
@@ -42,16 +38,16 @@ Gaps:
 
 ## Summary
 
-| ID | Severity | Category    | Fix            | Title                                |
-| -- | -------- | ----------- | -------------- | ------------------------------------ |
-| F1 | High     | Correctness | Needs decision | Parser drops the final token         |
-| F2 | Low      | Resources   | Trivial        | Unclosed file handle on early return |
+| ID | Severity | Category    | Fix   | Title                                |
+| -- | -------- | ----------- | ----- | ------------------------------------ |
+| F1 | High     | Correctness | Fixed | Parser drops the final token         |
+| F2 | Low      | Resources   | Fixed | Unclosed file handle on early return |
 
 If there are no findings, replace the table with `No findings.` and omit the finding sections.
 
 ## F1. Parser drops the final token
 
-High · Correctness · Needs decision · `src/parser.rs:42`
+High · Correctness · Fixed · `src/parser.rs:42`
 
 What happens, when, and what it affects, in short paragraphs. Use a list only for a real enumeration, such as several locations.
 
@@ -61,7 +57,7 @@ How you confirmed it: the trace, reproduction, test, or output. Omit this sectio
 
 ### Fix
 
-For a `Trivial` finding, the exact change. Otherwise, the suggested fix and the decision it needs or why it needs a plan.
+The change you made. If the fix needed a decision, the decision the user made.
 
 ## Checks run
 
@@ -69,4 +65,4 @@ For a `Trivial` finding, the exact change. Otherwise, the suggested fix and the 
 
 ## Verdict
 
-Summarize the review result and any action needed, referring to findings by ID.
+Summarize the review result, referring to findings by ID.
