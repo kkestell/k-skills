@@ -117,15 +117,13 @@ Tasks are checked off as they're done, but milestones don't have checkboxes. Whe
 
 ### The Architecture (`agents/architecture.md`, optional)
 
-If `spec.md` describes the project's external behavior and its behavioral and contract invariants, then `architecture.md` does the same for the implementation. It covers what's hard to see by reading one file at a time: which layers may depend on which (for example, request handlers reach the database only through the task store), who owns shared state and resources like connection pools, how work is split across threads or processes, and the reasons behind decisions that would otherwise look arbitrary, like why the project uses a hand-written parser instead of a library.
+`architecture.md` documents the project's implementation constraints and the reasoning behind key design decisions. It covers dependency boundaries, ownership of shared state and resources, and how work is split across threads or processes.
 
-What this file must not do is restate the code. That's important, because otherwise it turns into a dumping ground for exactly that. The vast majority of code changes shouldn't touch this file. It should change only when the high-level architecture changes, and on an established, mature project that should be rare.
-
-A lot of projects don't need this file at all, and it's best left out when a project can get away without it. But some projects do need to document these things, and for those it helps to have a designated place. Otherwise there's nowhere to put them, and every fact needs a home.
+This file can easily accumulate cruft, so keep it focused on high-level architecture. Do not let it become a running commentary on the code. Most code changes shouldn't touch it; update it only when the architecture changes. Include it only when the project needs these rules and decisions documented.
 
 ### Running a Task
 
-#### 1. Plan ([`kplan/SKILL.md`](https://github.com/kkestell/k-skills/blob/main/kplan/SKILL.md))
+#### 1. Plan ([`kplan/SKILL.md`](https://github.com/kkestell/skills/blob/main/kplan/SKILL.md))
 
 ```
 /kplan the next task in agents/todo.md
@@ -135,17 +133,17 @@ The plan skill takes the next task in `todo.md`. The agent explores the codebase
 
 Planning upfront forces the agent to confront edge cases before writing code, lets you use a cheaper, faster model for the implementation, and lets you steer the design before bad code is written.
 
-#### 2. Work ([`kwork/SKILL.md`](https://github.com/kkestell/k-skills/blob/main/kwork/SKILL.md))
+#### 2. Work ([`kwork/SKILL.md`](https://github.com/kkestell/skills/blob/main/kwork/SKILL.md))
 
 Once the plan looks right, the work skill takes over. The agent implements the plan, runs the checks, and writes a work log to `agents/work/` recording how the change was verified, where it departed from the plan, and any surprises it ran into.
 
-#### 3. Review ([`kreview/SKILL.md`](https://github.com/kkestell/k-skills/blob/main/kreview/SKILL.md))
+#### 3. Review ([`kreview/SKILL.md`](https://github.com/kkestell/skills/blob/main/kreview/SKILL.md))
 
 After the implementation is done, the review skill checks it. The agent reviews the changes against the plan, fixes trivial issues directly, and asks you to decide on anything non-trivial. It writes the review to `agents/reviews/` and commits the plan, code changes, work log, and review together.
 
 ### Models and harnesses
 
-The skills ([`k-skills`](https://github.com/kkestell/k-skills)) are written to work in more than one agent harness. They work with Claude Code, Codex, and OpenCode, so you can pick the model for each step. It's worth running the review with a different model from the one that wrote the code.
+The skills ([`skills`](https://github.com/kkestell/skills)) are written to work in more than one agent harness. They work with Claude Code, Codex, and OpenCode, so you can pick the model for each step. It's worth running the review with a different model from the one that wrote the code.
 
 ### Sessions
 
@@ -159,3 +157,48 @@ Here are a few projects built with this workflow. Their repositories show what t
 
 - **[Ox](https://github.com/kkestell/ox)**: An ACP-native coding agent in Go, with an ACP server and a terminal UI.
 - **[Willow](https://github.com/kkestell/willow)**: A small, statically typed language with Python-like syntax that compiles to Lua and runs on LuaJIT.
+
+### Claude Code Tips and Tricks
+
+#### No Free Advertising
+
+Disable Claude's attribution in commits and pull requests:
+
+```json
+{
+  "includeCoAuthoredBy": false
+}
+```
+
+See the [attribution settings](https://code.claude.com/docs/en/settings-reference#includecoauthoredby).
+
+#### Spinner Verbs
+
+`"mode": "replace"` replaces the default spinner verbs with your own. Use `"append"` to keep the defaults too. Here's my full list:
+
+```json
+{
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": [
+      "DISTILLING A CHINESE MODEL",
+      "PERPETUAL MOTION IS POWERED BY CUBIC WISDOM",
+      "RELOCATING THE EYES OF THE FLOUNDER FISH",
+      "GENE RAY IS NOT A CRACKPOT",
+      "BE THREE FEET BEHIND YOUR HEAD"
+    ]
+  }
+}
+```
+
+#### Disable Artifacts
+
+Turn off Claude Code's Artifact tool:
+
+```json
+{
+  "enableArtifact": false
+}
+```
+
+See [Disable artifacts](https://code.claude.com/docs/en/artifacts#disable-artifacts).

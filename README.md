@@ -57,11 +57,11 @@ Use `codex` or `opencode` in the discussion step to choose another agent. The in
 From a local checkout:
 
 ```bash
-npx skills add /path/to/k-skills -g -a claude-code -a codex -s '*'
+npx skills add /path/to/skills -g -a claude-code -a codex -s '*'
 ```
 
 From GitHub:
 
 ```bash
-npx skills add kkestell/k-skills -g -a claude-code -a codex -s '*'
+npx skills add kkestell/skills -g -a claude-code -a codex -s '*'
 ```
