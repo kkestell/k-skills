@@ -66,9 +66,9 @@ Some projects might also need an `agents/architecture.md`, covered below.
 
 > The more you tighten your grip, Tarkin, the more star systems will slip through your fingers.<br>— Princess Leia Organa
 
-Keep `AGENTS.md` short. A model has limited attention, and you want it thinking about your code, not your workflow.
+Keep `AGENTS.md` short. The agent reads these instructions on every task, so every rule takes attention away from the code and the problem you're trying to solve. A long list also makes it harder for you to tell which rules are helping.
 
-Start with a few rules and add them when you see recurring problems. Revisit them when you change models; a workaround that helped one model may be unnecessary for the next.
+Many rules are workarounds for quirks in a particular model. The next model may handle those things on its own, but the old rules tend to stick around. Over time, you can end up with instructions that mostly tell the agent what it would have done anyway. Start with very few, read the code it produces, and add rules when you see recurring problems. Revisit those rules when you change models.
 
 Here's an example:
 
@@ -130,7 +130,9 @@ Describe your project in one sentence.
   stop.
 ````
 
-Keep documentation for things the code can't explain. Agents often generate prose that restates the implementation, adding files to maintain and context to read. They can read the code directly.
+The documentation rules keep agents from filling the repository with explanations of code they just wrote. Left alone, agents often produce summaries, walkthroughs, and other documents that mostly restate the implementation. Those files cost tokens to write and read, need updating when the code changes, and can mislead the next session when they fall out of date.
+
+The agent can read the code directly. Removing documentation that merely repeats it usually doesn't make the agent's work any worse. Keep documentation for what the code can't explain: intended behavior, constraints that span the project, and the reasons behind design decisions.
 
 ### `agents/spec.md`
 
