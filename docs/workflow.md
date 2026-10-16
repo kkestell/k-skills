@@ -89,7 +89,7 @@ Describe your project in one sentence.
 ├── AGENTS.md
 ├── agents/
 │   ├── spec.md           # Project behavior, integrations, and invariants
-│   ├── architecture.md   # Implementation constraints and design decisions (optional)
+│   ├── architecture.md   # Constraints and design decisions (optional)
 │   ├── todo.md           # Milestones and tasks
 │   ├── plans/            # Implementation plans
 │   ├── work/             # Work logs and verification results
@@ -102,22 +102,32 @@ Describe your project in one sentence.
 
 - Do less. Keep correct code simple, idiomatic, and cheap to change.
 - Give each concern a clear boundary and each lifecycle one owner.
-- Solve the actual problem. Every addition must justify its complexity; producing more code is not a goal. When both a simple solution and a general solution work, choose the simple one and wait for evidence before generalizing.
-- Test observable behavior. Use a small number of representative examples and meaningful regression tests for actual bugs.
+- Solve the actual problem. Every addition must justify its complexity;
+  producing more code is not a goal. When both a simple solution and a general
+  solution work, choose the simple one and wait for evidence before
+  generalizing.
+- Test observable behavior. Use a small number of representative examples and
+  meaningful regression tests for actual bugs.
 
 ## Documentation
 
 - Give each fact a single source of truth.
-- The code and its comments describe the implementation. Git history records changes.
+- The code and its comments describe the implementation. Git history records
+  changes.
 - Most code needs no comments. Most changes need no documentation updates.
 - Do not create new documentation files or sections unless requested.
-- Code, comments, and test names describe the project in its own terms. Never mention roadmap milestones, ticket numbers, plans, or other work records in them.
+- Code, comments, and test names describe the project in its own terms. Never
+  mention roadmap milestones, ticket numbers, plans, or other work records in
+  them.
 
 ## Communication
 
-- Describe things directly, clearly, and plainly. Lead with the main point, then add detail as needed.
-- Avoid jargon, invented terms, and shorthand. Never mix definitions or overload terms.
-- Explain what changed and how it was verified. Be short. Say the thing and stop.
+- Describe things directly, clearly, and plainly. Lead with the main point, then
+  add detail as needed.
+- Avoid jargon, invented terms, and shorthand. Never mix definitions or overload
+  terms.
+- Explain what changed and how it was verified. Be short. Say the thing and
+  stop.
 ````
 
 Keep documentation for things the code can't explain. Agents often generate prose that restates the implementation, adding files to maintain and context to read. They can read the code directly.
