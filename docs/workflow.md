@@ -169,7 +169,9 @@ This file can easily accumulate cruft, so keep it focused on high-level architec
 
 ## Models and harnesses
 
-The [skills](https://github.com/kkestell/skills) work with Claude Code, Codex, and OpenCode. Choose a model for each step, and use a different model for review to get another perspective on the code.
+The skills are written to work across Claude Code, Codex, and OpenCode, so you can switch harnesses and models without changing the workflow. You don't have to use the same model for every step. You might use a stronger model to work through the design, then a cheaper, faster one to implement the plan.
+
+It's worth using a different model for review. The model that wrote the code may repeat the assumptions it made during implementation; another model may question those assumptions or catch mistakes the first one missed. You still need to read the code and judge the findings yourself.
 
 ## Sessions
 
