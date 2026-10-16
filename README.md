@@ -4,6 +4,8 @@ For how the plan, work, and review skills fit into a project, see [An Agentic De
 
 ## Skills
 
+Skill definitions and their supporting files live in `skills/`.
+
 Each artifact directory may contain a `_template.md`; if it does, the skill uses it, otherwise the skill falls back to its built-in default template.
 
 ### `/kplan`

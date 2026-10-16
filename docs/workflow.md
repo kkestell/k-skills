@@ -20,7 +20,7 @@ For each task, the agent writes a plan, implements it, and reviews the changes. 
 
 ## The Workflow
 
-### 1. Plan ([`kplan/SKILL.md`](https://github.com/kkestell/skills/blob/main/kplan/SKILL.md))
+### 1. Plan ([`skills/kplan/SKILL.md`](../skills/kplan/SKILL.md))
 
 ```
 /kplan the next task in agents/todo.md
@@ -30,11 +30,11 @@ The plan skill takes the next task in `todo.md`. The agent explores the codebase
 
 Planning upfront forces the agent to confront edge cases before writing code, lets you use a cheaper, faster model for the implementation, and lets you steer the design before bad code is written.
 
-### 2. Work ([`kwork/SKILL.md`](https://github.com/kkestell/skills/blob/main/kwork/SKILL.md))
+### 2. Work ([`skills/kwork/SKILL.md`](../skills/kwork/SKILL.md))
 
 Once the plan looks right, the work skill takes over. The agent implements the plan, runs the checks, and writes a work log to `agents/work/` recording how the change was verified, where it departed from the plan, and any surprises it ran into.
 
-### 3. Review ([`kreview/SKILL.md`](https://github.com/kkestell/skills/blob/main/kreview/SKILL.md))
+### 3. Review ([`skills/kreview/SKILL.md`](../skills/kreview/SKILL.md))
 
 After the implementation is done, the review skill checks it. The agent reviews the changes against the plan, fixes trivial issues directly, and asks you to decide on anything non-trivial. It writes the review to `agents/reviews/` and commits the plan, code changes, work log, and review together.
 
