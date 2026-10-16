@@ -1,5 +1,7 @@
 # K Skills
 
+For how the plan, work, and review skills fit into a project, see [An Agentic Development Workflow](docs/workflow.md).
+
 ## Skills
 
 Each artifact directory may contain a `_template.md`; if it does, the skill uses it, otherwise the skill falls back to its built-in default template.
