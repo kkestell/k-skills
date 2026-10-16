@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1110 320" width="1110" height="320" role="img" aria-label="Workflow: spec.md feeds todo.md; the next task goes to Plan, then Work, then Review, then Commit, and the task is checked off in todo.md. Plan loops on steering. Review sends decisions to you, then the agent fixes.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1110 320" width="1110" height="320" role="img" aria-label="Workflow: Spec (/kspec) resolves product decisions with you and writes spec.md, which feeds todo.md; the next task goes to Plan, then Work, then Review, then Commit, and the task is checked off in todo.md. Plan loops on steering. Review sends decisions to you, then the agent fixes.">
   <defs>
     <marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M1 1 L9 5 L1 9" fill="none" stroke="#5b6472" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -27,9 +27,17 @@
 
   <text x="40" y="52" class="sans label" letter-spacing="0.4">one task · one plan · one review · one commit</text>
 
-  <!-- Files -->
-  <rect x="40" y="148" width="110" height="48" rx="10" class="file"/>
-  <text x="95" y="172" class="mono filename" text-anchor="middle" dominant-baseline="central">spec.md</text>
+  <!-- Specification skill and its output -->
+  <rect x="40" y="132" width="110" height="80" rx="12" class="skill"/>
+  <text x="95" y="154" class="sans title" text-anchor="middle">Spec</text>
+  <text x="95" y="174" class="mono sub" text-anchor="middle">/kspec</text>
+  <text x="95" y="196" class="mono filename" text-anchor="middle">spec.md</text>
+
+  <!-- Resolve product decisions before writing the spec -->
+  <path d="M73 132 C 73 100, 117 100, 117 130" class="loop" marker-end="url(#accent)"/>
+  <text x="95" y="96" class="sans accent-label" text-anchor="middle">decide behavior</text>
+
+  <!-- Backlog -->
 
   <rect x="190" y="148" width="110" height="48" rx="10" class="file"/>
   <text x="245" y="172" class="mono filename" text-anchor="middle" dominant-baseline="central">todo.md</text>

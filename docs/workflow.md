@@ -4,7 +4,7 @@
 
 This workflow assumes the developer roughly knows what they want to build, is prepared to make the architectural decisions, cares about the code.
 
-There are no agent swarms here -- no worktrees. This is just you, an agent harness, your code, a couple files, and three agent skills; working carefully on one thing at a time.
+There are no agent swarms here -- no worktrees. This is just you, an agent harness, your code, a couple files, and a few agent skills; working carefully on one thing at a time.
 
 Don't forget:
 
@@ -14,13 +14,25 @@ Don't forget:
 
 ## Overview
 
+Start by defining the product behavior in `agents/spec.md`, by hand or with `/kspec`, then break it into tasks in `agents/todo.md`.
+
 For each task, the agent writes a plan, implements it, and reviews the changes. You review the plan and make any decisions the agent raises. The plan, code, work log, and review are committed together, then the task is checked off.
 
-![The workflow: spec.md and todo.md feed Plan, Work, Review, and Commit, then the task is checked off](workflow.svg)
+![The workflow: Spec (/kspec) writes spec.md, which feeds todo.md, then Plan, Work, Review, and Commit; the task is checked off](workflow.svg)
 
 ## The Workflow
 
-### 1. Plan
+### 1. Spec
+
+```
+/kspec
+```
+
+The spec skill helps you define or update the product's observable behavior. The agent works through open product decisions with you, one question at a time, then writes the settled behavior to `agents/spec.md`. Break that behavior into tasks in `agents/todo.md` before planning the implementation.
+
+Return to `/kspec` when product behavior needs defining or changing. For each task, follow the plan, work, and review cycle below.
+
+### 2. Plan
 
 ```
 /kplan the next task in agents/todo.md
@@ -30,7 +42,7 @@ The plan skill takes the next task in `todo.md`. The agent explores the codebase
 
 Planning upfront forces the agent to confront edge cases before writing code, lets you use a cheaper, faster model for the implementation, and lets you steer the design before bad code is written.
 
-### 2. Work
+### 3. Work
 
 ```
 /kwork agents/plans/2026-10-16-001-export.md
@@ -38,13 +50,19 @@ Planning upfront forces the agent to confront edge cases before writing code, le
 
 Once the plan looks right, the work skill takes over. The agent implements the plan, runs the checks, and writes a work log to `agents/work/` recording how the change was verified, where it departed from the plan, and any surprises it ran into.
 
-### 3. Review
+### 4. Review
 
 ```
 /kreview staged changes for agents/plans/2026-10-16-001-export.md
 ```
 
 After the implementation is done, the review skill checks it. The agent reviews the changes against the plan, fixes trivial issues directly, and asks you to decide on anything non-trivial. It writes the review to `agents/reviews/` and commits the plan, code changes, work log, and review together.
+
+## Consistent responses
+
+Each skill has a **Final response** section that specifies the format and information the assistant should include when it finishes. The response summarizes the result and links to the files it produced. Depending on the skill, it also calls out decisions, surprises, or review findings. The plan, work, and review skills include the next command to run.
+
+I've found this consistency really nice. I know where to look for the result, what needs my attention, and which command to run next.
 
 ## Project Layout
 
@@ -69,6 +87,14 @@ Everything else lives in `agents/`, which keeps the workflow's files together an
 - **`reviews/`** holds one code review per task, with the findings and how each was resolved.
 
 Some projects might also need an `agents/architecture.md`, covered below.
+
+The plan, work, and review skills each include a built-in template for the files they produce. To customize those formats for a project, add an `_template.md` file in the corresponding directory:
+
+- `agents/plans/_template.md`
+- `agents/work/_template.md`
+- `agents/reviews/_template.md`
+
+Each skill uses the project's template when present and its built-in template otherwise.
 
 ### `AGENTS.md`
 
@@ -110,32 +136,22 @@ Describe your project in one sentence.
 
 - Do less. Keep correct code simple, idiomatic, and cheap to change.
 - Give each concern a clear boundary and each lifecycle one owner.
-- Solve the actual problem. Every addition must justify its complexity;
-  producing more code is not a goal. When both a simple solution and a general
-  solution work, choose the simple one and wait for evidence before
-  generalizing.
-- Test observable behavior. Use a small number of representative examples and
-  meaningful regression tests for actual bugs.
+- Solve the actual problem. Every addition must justify its complexity; producing more code is not a goal. When both a simple solution and a general solution work, choose the simple one and wait for evidence before generalizing.
+- Test observable behavior. Use a small number of representative examples and meaningful regression tests for actual bugs.
 
 ## Documentation
 
 - Give each fact a single source of truth.
-- The code and its comments describe the implementation. Git history records
-  changes.
+- The code and its comments describe the implementation. Git history records changes.
 - Most code needs no comments. Most changes need no documentation updates.
 - Do not create new documentation files or sections unless requested.
-- Code, comments, and test names describe the project in its own terms. Never
-  mention roadmap milestones, ticket numbers, plans, or other work records in
-  them.
+- Code, comments, and test names describe the project in its own terms. Never mention roadmap milestones, ticket numbers, plans, or other work records in them.
 
 ## Communication
 
-- Describe things directly, clearly, and plainly. Lead with the main point, then
-  add detail as needed.
-- Avoid jargon, invented terms, and shorthand. Never mix definitions or overload
-  terms.
-- Explain what changed and how it was verified. Be short. Say the thing and
-  stop.
+- Describe things directly, clearly, and plainly. Lead with the main point, then add detail as needed.
+- Avoid jargon, invented terms, and shorthand. Never mix definitions or overload terms.
+- Explain what changed and how it was verified. Be short. Say the thing and stop.
 ````
 
 The documentation rules keep agents from filling the repository with explanations of code they just wrote. Left alone, agents often produce summaries, walkthroughs, and other documents that mostly restate the implementation. Those files cost tokens to write and read, need updating when the code changes, and can mislead the next session when they fall out of date.
@@ -146,7 +162,13 @@ The agent can read the code directly. Removing documentation that merely repeats
 
 Start with `agents/spec.md`, written by hand or with the agent. It defines what the project does, how it interacts with other systems, and the rules its behavior must satisfy. Keep implementation details in the code.
 
-Write enough to guide the first tasks, then refine the spec as you build and learn.
+For a specific behavior change, give `/kspec` a focused request:
+
+```
+/kspec define how task exports should handle filters and empty results
+```
+
+Write enough to guide the first tasks, then refine the spec as you build and learn. Use `/kspec` again when product behavior changes; `/kplan` handles how to implement it.
 
 ### `agents/todo.md`
 
